@@ -21,72 +21,114 @@
 
  // Define Global Variables
 
-let navigation=document.querySelector('#navbar__list');
+const navigation=document.querySelector('#navbar__list');
 
 // Adding a global variable for all sections
-let sections=document.querySelectorAll("section");
- 
+const sections=document.querySelectorAll("section");
+const menuLinks=document.querySelectorAll('.navbar__menu');
 
-
-/**
- * End Global Variables
- * Start Helper Functions
- * 
-*/
-
-
-
-/**
- * End Helper Functions
- * Begin Main Functions
- * 
-*/
-
+//Formatting the landing page header
+const headingOne=document.getElementById('header');
+headingOne.style.backgroundColor="rgb(50,50,80)";
 // build the nav
-//Use of Arrow function to loop over all the sections
-
-let buildNav=()=>{
-
     //Defining the empty variable to receive our looped information
     let navBuilt='';
 
-    // use of forEach function so that our loop can apply to all of the sections in index.html
-
+    // use of forEach function so that our forEach loop can apply to all of the sections in index.html
+ function buildNav(){
     sections.forEach(section =>{
-
-       // defining using const all the sections and dataNav
-
-    let sectionId= section.id;
-    let sectionData=section.dataset.nav;
     //Making sure to tell how the loop function will be executed and also adding our sections hyperlinked to the page
-
-    navBuilt +=`<li><a class="menu__link" href="#${sectionId}"> {sectionData} </a></li>`;
-   
+        
+    navBuilt +=`<li><a class="menu__link" href="#${section.id}"> ${section.dataset.nav} </a></li>`;
+ 
     
 });
 // Let's append all we defined in the inner html
 
 navigation.innerHTML=navBuilt;
 
-}
+ }
+// Call the function
 buildNav();
+// Adding 'Your active Class' to all the sections viewed while scrolling on the page;
+           
+const viewPort=(section)=>{
+    const activeClass=section.getBoundingClientRect().top<150 && section.getBoundingClientRect().bottom>=150;
+    return activeClass;
 
-// Add class 'active' to section when near top of viewport
+}
 
+//Implementation of the actual function
+const scrollFunction=(sec)=>{
+   
+    sections.forEach(section=>{
+    ////Add class 'active' to section when near top of viewport
+    if(viewPort(section)){
+           
+            section.classList.add('your-active-class');
+            section.style.cssText='background-color:crimson';
+            section.preventDefault;
+            
+        } 
+        //Remove the 'active' to section
+        else{
+        section.classList.remove('your-active-class');
+        section.style.cssText="background-color:black";
 
-// Scroll to anchor ID using scrollTO event
+        }
+    })
+}
+document.addEventListener('scroll', scrollFunction);
 
+const links = document.querySelectorAll(".menu__link");
+console.log(links);
+const sectionId=links.innerHTML;
+sectionId.
+console.log(sectionId);
 
-/**
- * End Main Functions
- * Begin Events
- * 
-*/
+//Highlighting the Nav Item
+    /* function navList(){
+        menuLinks.forEach(link=>{
+  link.addEventListener('click', (e)=>{
+      menuLinks.forEach((l) => {
+          l.style.backgroundColor=""
+      });
+      e.target.backgroundColor="crimson"
+  })
+})
+    } 
+window.addEventListener('click', navList); */
+const menuLinks=document.querySelectorAll('.navbar__menu');
+menuLinks.forEach((menuLink) => {
+	menuLink.addEventListener("click", (e) => {
+		menuLinks.forEach((link) => {
+			link.style.backgroundColor = "";
+		});
 
-// Build menu 
+		e.target.style.backgroundColor = "crimson";
+	});
+});
 
+/* window.onscroll = () => {
+    menuLinks.forEach(link=>{
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            link.style.backgroundColor="crimson";
+        } else {
+            link.style.backgroundColor="";  
+        }
+    })
+}; */
 // Scroll to section on link click
 
-// Set sections as active
+const eventWhencrollingDown=()=>{
+    sections.forEach(section => {
+        section.addEventListener("click", function(e){
+            e.preventDefault();
+                section.scrollIntoView({behavior: "smooth"})
+        });
+    });
+}; 
 
+// Calling the function so that when the user scrolls down, the event listener can be added to the sections
+eventWhencrollingDown();
 
