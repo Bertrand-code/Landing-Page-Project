@@ -69,7 +69,7 @@ const scrollFunction = (sec) => {
         console.log(sectionTop)
          const sectionHeight = section.clientHeight;
 
-        if (viewPort(section) &&(pageYOffset >= (sectionTop - sectionHeight / 4))) {
+        if (viewPort(section) &&(pageYOffset >= (sectionTop - sectionHeight / 3))) {
             section.classList.add('your-active-class');
             section.style.cssText = 'background-color:crimson';
             section.preventDefault;
